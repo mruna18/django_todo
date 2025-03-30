@@ -1,0 +1,22 @@
+{% extends 'main.html' %}
+
+{% block content %}
+<div class="form-container">
+  <h1>Add Task</h1>
+  <form action="" method="POST" class="task-form">
+    {% csrf_token %}
+    
+    <div class="form-group">
+      <label for="title">Title</label>
+      <input type="text" name="title" id="title" placeholder="Enter task title" value="{{data.title}}" required>
+    </div>
+
+    <div class="form-group">
+      <label for="desc">Description</label>
+      <textarea name="desc" id="desc" rows="4" placeholder="Enter task description" >{{data.desc}}</textarea>
+    </div>
+
+    <button type="submit" class="btn">Save Task</button>
+  </form>
+</div>
+{% endblock content %}

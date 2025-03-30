@@ -1,0 +1,61 @@
+{% extends 'main.html' %}
+
+{% block content %}
+<h1 class="title">All Tasks</h1>
+<div class="home">
+  {% for i in data %}
+  <div class="task">
+    <div class="task-content">
+      <h2>{{ i.title }}</h2>
+      <p>{{ i.desc }}</p>
+    </div>
+    <div class="task-actions">
+      <a href="#">Details</a>
+      <a href="{% url 'edit' i.id %}">Edit</a>
+      <a href="{% url 'delete_' i.id%}" class="delete-link">Delete</a>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+<!-- Delete Confirmation Modal -->
+<div id="deleteModal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <p class="modal-text">Are You Sure You Want To Delete The Task?</p>
+    <div class="modal-actions">
+      <a id="confirmDelete" class="btn-delete">Delete</a>
+      <button class="btn-cancel">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const modal = document.getElementById("deleteModal");
+    const closeBtn = document.querySelector(".close");
+    const cancelBtn = document.querySelector(".btn-cancel");
+    const confirmDelete = document.getElementById("confirmDelete");
+    const deleteLinks = document.querySelectorAll(".delete-link");
+
+    deleteLinks.forEach(link => {
+      link.addEventListener("click", function (e) {
+        e.preventDefault();
+        let deleteUrl = this.getAttribute("href");
+        confirmDelete.href = deleteUrl;
+        modal.classList.add("show"); // Properly show modal
+      });
+    });
+
+    closeBtn.onclick = () => modal.classList.remove("show");
+    cancelBtn.onclick = () => modal.classList.remove("show");
+
+    window.onclick = event => {
+      if (event.target === modal) {
+        modal.classList.remove("show");
+      }
+    };
+  });
+</script>
+
+{% endblock content %}

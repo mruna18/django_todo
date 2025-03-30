@@ -1,0 +1,15 @@
+# Ignore database and migrations
+db.sqlite3
+__pycache__/
+*.pyc
+*.pyo
+
+# Ignore virtual environments
+myenv/
+
+# Ignore environment variables
+.env
+*.env
+
+# Ignore Django secret key settings (if applicable)
+settings_local.py
